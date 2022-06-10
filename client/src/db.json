@@ -1,0 +1,26 @@
+{
+    "users":[
+        {
+            "id": 1,
+            "firstName":"George",
+            "lastName":"Williamson",
+            "role": "admin",
+                
+            "joinedDate": "02 Feb,2020"
+        },
+        {
+            "id": 2,
+            "firstName":"Sara",
+            "lastName":"Graham",
+            "role":"editor",
+            "joinedDate": "04 March,2020"
+        },
+        {
+            "id": 3,
+            "firstName":"Ervin",
+            "lastName":"Howell",
+            "role":"admin",
+            "joinedDate": "08 Dec,2020"
+        }
+    ]
+}
