@@ -1,64 +1,53 @@
 import React, { useState,useEffect } from 'react';
-   
 import axios from "axios";
 
-  
-
-function User() {
+  function User() {
     const [users, setUsers] = useState([]);
-    const [roleTypes,setRoleTypes] = useState("all");
-
-    const filterCondition = (role)=> {
-        const {admin,editor} = role
-
-        let roleCondition = true;
-         if(roleTypes === "admin"){
-             roleCondition = admin ? true: false;
-         }
-         else if(roleTypes  === "editor"){
-
-             roleCondition = editor ? true:false;
-         }
-         return roleCondition
-    }
+    const [searchTerm,setSearchTerm] = useState('')
+  
 
     useEffect(() => {
       axios
         .get("http://localhost:3004/users")
-        .then((res) => 
-        setUsers(res.data)
-        // console.log(res.data)
-        )
+        .then((res) => {
+        console.log(res.data)
+        setUsers(res.data);
+     
+    })
         .catch((err) => console.log(err));
     }, []);
+
+    
+   
   
     return (
       <div>
-      
-       <div>
-         {
-             ["admin","editor","all"].map((method,i)=>(
-                 <button onClick={()=>setRoleTypes(method)}>{method}</button>
-             ))
-         }
-       </div>
-        <hr/>
+         
+         <input type="text" placeholder="seach..." onChange={e=>setSearchTerm(e.target.value)} />
+          
+       <hr/>
           <div>
-          {users?.filter(filterCondition).map((user, index) => (
+          {users.filter((val)=>{
+        if(searchTerm == ""){
+          return val
+        }
+        else if(val.firstName.toLowerCase().includes(searchTerm.toLowerCase())||val.lastName.toLowerCase().includes(searchTerm.toLowerCase()) || val.joinedDate.toLowerCase().includes(searchTerm.toLowerCase())){
+          return val;
+        }
+      }).map((user, index) => (
             <div key={index}>
                 
               <p>S.No: {user.id}</p>
               <p>Name: {user.firstName} {user.lastName}</p>
               <p> Role: {user.role}</p>
               <p> Joined Date: {user.joinedDate}</p>
+              <hr/>
             </div>
           ))}
          
         </div>
-        {/* </Box>
-        </Grid> */}
+      
       </div>
     );
 }
-
 export default User
