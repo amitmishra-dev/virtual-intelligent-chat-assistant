@@ -36,6 +36,14 @@
       "email": "amitkm492@gmail.com",
       "password": "amit",
       "id": 5
+    },
+    {
+      "firstName": "deepak",
+      "lastName": "chopda",
+      "role": "Admin",
+      "email": "amitkm492@gmail.com",
+      "password": "amit",
+      "id": 6
     }
   ],
   "books": [
