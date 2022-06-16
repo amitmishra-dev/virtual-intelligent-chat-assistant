@@ -1,84 +1,84 @@
+import { addUser, getUser, getUsers, deleteUser, updateUser } from "./actions";
 
+import axios from "axios";
 
-import { addBook, getBook, getBooks, deleteBook, updateBook } from './actions';
+/// add a new user
+export const addUserAction = (user) => {
+  return (dispatch) => {
+    /// axios is a library used to make request to an API,
+    /// return data and manipulate the data .
+    axios
+      .post("http://localhost:5000/books/create", user)
+      .then((response) => {
+        console.log(response);
+        dispatch(addUser(response.data));
+      })
+      .catch((error) => {
+        console.log("eror", error);
+      });
+  };
+};
 
-import axios from 'axios';
+/// fetch data of a single user  basedin id
+export const getUserAction = (id) => {
+  return (dispatch) => {
+    axios
+      .get(`http://localhost:5000/books/${id}`)
+      .then((response) => {
+        console.log(response);
+        dispatch(getUser(response.data));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+};
 
-
-/// add a new Book
-export const addBookAction = (user) => {
-    return (dispatch) => {
-     
-        /// return data and manipulate the data .
-        axios.post('http://localhost:5000/book/create', user)
-            .then(response => {
-                console.log(response);
-                dispatch(addBook(response.data))
-            })
-            .catch(error => {
-                console.log("eror", error);
-            });
-    }
-}
-
-/// fetch data of a single Book  basedin id
-export const getBookAction = (id) => {
-    return (dispatch) => {
-        axios.get(`http://localhost:5000/users/${id}`)
-            .then(response => {
-                console.log(response);
-                dispatch(getBook (response.data)
-                );
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    }
-}
-
-/// fetch all Books 
+/// fetch all users
 export const getBooksAction = () => {
-    return (dispatch) => {
-        axios.get('http://localhost:5000/book')
-            .then(response => {
-                console.log(response);
-                /// dispatch function dispatches an action which triggers state changes in the store
-                dispatch(getBooks(response.data)
-                );
+  return (dispatch) => {
+    axios
+      .get("http://localhost:5000/books")
+      .then((response) => {
+        console.log(response);
+        /// dispatch function dispatches an action which triggers state changes in the store
+        dispatch(getUsers(response.data));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+};
 
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    }
-}
+/// delete a user
+export const deleteUserAction = (id) => {
+  return (dispatch) => {
+    axios
+      .delete(`http://localhost:5000/books/${id}`)
+      .then((response) => {
+        console.log(response);
+        dispatch(deleteUser());
+        dispatch(getBooksAction());
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+};
 
-/// delete a book
-export const deleteBookAction = (id) => {
-    return (dispatch) => {
-        axios.delete(`http://localhost:5000/book/delete/${id}`)
-            .then(response => {
-                console.log(response);
-                dispatch(deleteBook());
-                dispatch(getBooksAction());
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    }
-}
-
-/// update the existing data of a book
+/// update the existing data of a user
 export const updateBookAction = (id) => {
-    return (dispatch) => {
-        axios.put(`http://localhost:5000/book/${id}/update`)
-            .then(response => {
-                console.log(response);
-                dispatch(updateBook());
-                dispatch(getBooksAction());
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    }
-}
+  console.log(id, "id");
+  return (dispatch) => {
+    axios
+      .patch(`http://localhost:5000/books/${id}`)
+      .then((response) => {
+        console.log(response, "resp");
+        dispatch(updateUser());
+        dispatch(getBooksAction());
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+};

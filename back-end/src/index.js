@@ -14,6 +14,6 @@ app.use((req,res,next)=>{
 const userController = require('./controllers/user.controller');
 const bookController = require('./controllers/book.controller');
 app.use("/users",userController);
-app.use("/book",bookController);
+app.use("/books",bookController);
 
 module.exports=app;
