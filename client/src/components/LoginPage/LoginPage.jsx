@@ -74,32 +74,15 @@ export default function LoginPage() {
    }).then(resp => {
     console.log(resp);
     alert("You have been successfully Logged In");
-    change("/users");
+    change("/customer");
 }).catch(error => {
-
-return "error"
+   console.log(error);
+//return "error"
 
 
 });
    
-  //      const data = resp.data;
-  //      console.log(data);
-   
-  //      data.map(function(el){
-  //          if(el.email==user.email&& el.password==user.password){
-  //             // change.push("/")
-  //      alert("Logged In")
-             
-  //             change("/users");
-  //          }
-          
-           
-  //      })
-  //  }).catch(error => {
-  //       // alert("Wrong password ")
-  //        console.log(error);
-  // // return "error"
-  //  });
+ 
    }
     return(
       <div style={{alignItem: "centre", margin: "auto",  padding: 80, 

@@ -70,10 +70,11 @@ export const deleteUserAction = (id) => {
 
 /// update the existing data of a user
 export const updateUserAction = (id) => {
+    console.log(id, "id");
     return (dispatch) => {
-        axios.put(`http://localhost:5000/users/62a7fb4b428ec1ae38910c27`)
+        axios.put(`http://localhost:5000/users/${id}`)
             .then(response => {
-                console.log(response);
+                console.log(response,"resp");
                 dispatch(updateUser());
                 dispatch(getUsersAction());
             })

@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import { Card, Form, Button } from 'react-bootstrap';
-import { addUserAction } from '../../redux/UsersInfo/actions/creators';
+import { addBookAction } from '../../redux/BookInfo/actions/creators';
 import { connect } from 'react-redux';
 
-class AddUser extends Component {
+class AddUserBook extends Component {
 
     state = {
-        firstName: '',
-        lastName: '',
-        role: '',
-        email: '',
+        title: '',
+        description: '',
+        genre: '',
+        author: '',
     }
 
     handleTextChange = event => {
@@ -20,12 +20,12 @@ class AddUser extends Component {
 
     handleOnSubmit = event => {
         event.preventDefault();
-        this.props.addUserAction(this.state);
+        this.props.addBookAction(this.state);
         this.setState({
-            firstName: '',
-            lastName: '',
-            role: '',
-            email: '',
+            title: '',
+            description: '',
+            genre: '',
+            author: '',
         });
     }
 
@@ -34,46 +34,46 @@ class AddUser extends Component {
         return (
             <div className="container" id="update" >
                 <Card className={"border border-dark bg-dark text-white"} >
-                    <Card.Header><h3>Add User</h3></Card.Header>
+                    <Card.Header><h3>Add Book</h3></Card.Header>
                     <div className="form-container">
                         <Form onSubmit={this.handleOnSubmit}>
                             <Card.Body >
                                 <div className="form-group" >
-                                    <label>First Name</label>
+                                    <label>Title</label>
                                     <input
-                                        type="text" name="firstName"
+                                        type="text" name="title"
                                         onChange={this.handleTextChange}
-                                        value={this.state.firstName}
+                                        value={this.state.title}
                                         className="form-control w-50 p-2"
                                         required
                                     />
                                 </div>
                                 <div className="form-group" >
-                                    <label>Last Name</label>
+                                    <label>Description</label>
                                     <input
-                                        type="text" name="lastName"
+                                        type="text" name="description"
                                         onChange={this.handleTextChange}
-                                        value={this.state.lastName}
+                                        value={this.state.description}
                                         className="form-control w-50 p-2"
                                         required
                                     />
                                 </div>
                                 <div className="form-group" >
-                                    <label>Role</label>
+                                    <label>Genre</label>
                                     <input
-                                        type="text" name="role"
+                                        type="text" name="genre"
                                         onChange={this.handleTextChange}
-                                        value={this.state.role}
+                                        value={this.state.genre}
                                         className="form-control w-50 p-2"
                                         required
                                     />
                                 </div>
                                  <div className="form-group" >
-                                    <label>Email</label>
+                                    <label>Author</label>
                                     <input
-                                        type="text" name="email"
+                                        type="text" name="author"
                                         onChange={this.handleTextChange}
-                                        value={this.state.email}
+                                        value={this.state.author}
                                         className="form-control w-50 p-2"
                                         required
                                     />
@@ -83,8 +83,8 @@ class AddUser extends Component {
 
 
                                 <div className="form-group">
-                                    <button className="btn btn-primary" type="submit">Add User</button>
-                                    <Button id="btn" href='/customer' className="w-30 p-3 float-right" variant="primary" >
+                                    <button className="btn btn-primary" type="submit">Add Book</button>
+                                    <Button id="btn" href='/book' className="w-30 p-3 float-right" variant="primary" >
                                         Back
                                     </Button>
 
@@ -102,4 +102,4 @@ class AddUser extends Component {
     }
 
 }
-export default connect(null, { addUserAction })(AddUser);
+export default connect(null, { addBookAction })(AddUserBook);

@@ -3,12 +3,11 @@ import React, { useEffect, useState } from 'react';
 import { Card, Table, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUsersAction, deleteUserAction } from '../../redux/UsersInfo/actions/creators';
+import { getBooksAction, deleteBookAction } from '../../redux/BookInfo/actions/creators'
 import * as ReactBootstrap from 'react-bootstrap';
 import ReactPaginate from 'react-paginate';
 
-
-const UsersList = () => {
+const  UsersBook = () => {
 
     let dispatch = useDispatch();
     const [searchTerm, setSearchTerm] = useState("");
@@ -22,26 +21,23 @@ const UsersList = () => {
     const pagesVisited = pageNumber * usersPerPage;
     const pageCount = Math.ceil(users.length / usersPerPage);
 
-
     const changePage = ({ selected }) => {
         setPageNumber(selected);
     }
 
     const handleDelete = (id) => {
         if (window.confirm("Are you sure You want to delete?"));
-        dispatch(deleteUserAction(id));
+        dispatch(deleteBookAction(id));
     }
 
     useEffect(() => {
-        dispatch(getUsersAction(), setLoading(true));
+        dispatch(getBooksAction(), setLoading(true));
     }, []);
-
-    
 
     return (
         <div className="container" >
             <Card >
-                <Card.Header className={"border border-dark bg-dark text-white"}> Users List</Card.Header>
+                <Card.Header className={"border border-dark bg-dark text-white"}> Books List</Card.Header>
                 <Card.Body>
                     <span className="col-md-8">
                         <span className="input-group mb-3 ">
@@ -53,7 +49,7 @@ const UsersList = () => {
                                     setSearchTerm(e.target.value);
                                 }}
                             />
-                            <Link type="button" to={'/add'} className="btn btn-primary " id="tab">Add User</Link>
+                            <Link type="button" to={'/addBook'} className="btn btn-primary " id="tab">Add Book</Link>
                         </span>
                     </span>
 
@@ -61,10 +57,11 @@ const UsersList = () => {
                         <thead className={"border border-dark bg-dark text-white"}>
                             <tr>
                                 <th>id</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Role</th>
-                                <th>Joined At</th>
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Genre</th>
+                                <th>Author</th>
+                                <th>Created At</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -74,40 +71,37 @@ const UsersList = () => {
                                     if (searchTerm === "") {
                                         return val;
                                     } else if (
-                                        val.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                                        val.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                                        val.role.toLowerCase().includes(searchTerm.toLowerCase())
+                                        val.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                                        val.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                                        val.genre.toLowerCase().includes(searchTerm.toLowerCase())||
+                                        val.author.toLowerCase().includes(searchTerm.toLowerCase())
                                     ) {
                                         return val;
                                     }
-                                }).map((user) =>{
-                                    //console.log(user._id, "ID");
-                                    return <tr key={user.id}>
-                                    <td>{user._id}</td>
-                                    <td> {user.firstName}</td>
-                                    <td>{user.lastName}</td>
-                                    <td>{user.role}</td>
-                                    <td>{user.createdAt}</td>
-                                    <td>
-                                        <div className="btn-group" role="group" aria-label="Basic example">
-                                             
-                                            <Link type="button" to={{ pathname:`/customer ${user._id}`}} state={{ from: `${user._id}` }}  className="btn btn-success">Edit</Link>
-                                           
-                                            <Button type="button" onClick={() => handleDelete(user._id)} className="btn btn-danger">Delete</Button>
+                                }).map((user) =>
+                                    <tr key={user.id}>
+                                        <td>{user._id}</td>
+                                        <td> {user.title}</td>
+                                        <td>{user.description}</td>
+                                        <td>{user.genre}</td>
+                                        <td>{user.author}</td>
+                                        <td>{user.createdAt}</td>
+                                        <td>
+                                            <div className="btn-group" role="group" aria-label="Basic example">
+                                                <Link type="button" to={{ pathname:`/book ${user._id}`}} state={{ from: `${user._id}` }}  className="btn btn-success">Edit</Link>
+                                               
+                                                <Button type="button" onClick={() => handleDelete(user._id)} className="btn btn-danger">Delete</Button>
 
-                                        </div>
-                                    </td>
-                                </tr>
-                               
-                                }
-                                
-                                    
+                                            </div>
+                                        </td>
+                                    </tr>
+
                                 ) :
-                                <ReactBootstrap.Spinner animation="border" variant="warning" />
+                                <ReactBootstrap.Spinner animation="border" variant="primary" />
                             }
 
                         </tbody>
-      
+
                     </Table>
                     <ReactPaginate
                         previousLabel={"Previous"}
@@ -119,17 +113,14 @@ const UsersList = () => {
                         nextLinkClassName={"nextBttn"}
                         disabledClassName={"paginationDisabled"}
                         activeClassName={"paginationActive"}
-                        
 
                     />
                 </Card.Body>
-                <Link type="button" to={{ pathname:"/book"}}   className="btn btn-success">Book Information</Link>
-                {/* <Button type="button" style={{height:"5vh",width:"50vh", alignItem:"centre"}} className="btn btn-danger">Book Information</Button> */}
+
             </Card>
-            {/* <Updating/> */}
         </div >
 
     );
 }
 
-export default UsersList;
+export default  UsersBook;

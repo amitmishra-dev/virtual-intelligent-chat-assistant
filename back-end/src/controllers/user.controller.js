@@ -25,12 +25,16 @@ router.post("/login",async(req,res)=>{
    
     let users = await User.find({currentRoles:{$in:[req.body.email]}}).lean().exec();
     console.log(users + "--"+ req.body.email); 
-    var result =users.filter(el=>{ return (el.email.trim()==req.body.email)});
+    var result =users.filter(el=>{ return (el.email==req.body.email)});
     res.status(200).send(result);
 });
 
+
+
 router.patch("/:id",async(req,res)=>{
+    console.log(req.params.id,+ "id" + "---"+ req.body.id + "user");
     const user = await User.findByIdAndUpdate(req.params.id,req.body,{new:true});
+   // console.log(user, "user")
     return res.status(200).send(user)
 })
 

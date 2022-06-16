@@ -1,5 +1,5 @@
-import { createStore, applyMiddleware, compose } from 'redux';
-import reducers from './reducer/index';
+import { legacy_createStore as createStore, applyMiddleware, compose } from 'redux';
+import reducers from './UsersInfo/reducer/index';
 import thunk from 'redux-thunk';
 
 
